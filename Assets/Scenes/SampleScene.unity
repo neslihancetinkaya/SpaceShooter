@@ -328,11 +328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b28a64970847d9bc6fd1711aa2ba4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IngressCompleted: {fileID: 0}
-  ConstraintX: 1850
-  ConstraintY: 950
+  ConstraintX: 8.4
+  ConstraintY: 4.5
   Speed: 5
-  _startPos: {x: 0, y: 0}
+  IngressDuration: 1.5
+  IngressEase: 1
+  StartPos: {x: 0, y: -4.5}
 --- !u!1 &278315935
 GameObject:
   m_ObjectHideFlags: 0
