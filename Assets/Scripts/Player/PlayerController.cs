@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Lean.Pool;
 using UnityEngine;
 using Utils;
 
@@ -11,12 +12,16 @@ namespace Player
         [SerializeField] private float ConstraintY;
         [SerializeField] private float Speed;
         [SerializeField] private float IngressDuration;
+        [SerializeField] private float FireTime;
+        [SerializeField] private float LaserSpacing;
         [SerializeField] private Ease IngressEase;
         [SerializeField] private Vector2 StartPos;
+        [SerializeField] private GameObject Laser;
         
         private bool _horizontalConstraint;
         private bool _verticalConstraint;
         private bool _ingressCompleted;
+        private float _tick;
 
         private void Awake()
         {
@@ -34,6 +39,7 @@ namespace Player
             if(!_ingressCompleted)
                 return;
             Move();
+            Fire();
         }
 
         private void Move()
@@ -60,6 +66,16 @@ namespace Player
                 if(Input.GetKey(KeyCode.DownArrow))
                     transform.position = new Vector2(position.x, position.y - Speed * Time.deltaTime);
                 
+            }
+        }
+
+        private void Fire()
+        {
+            if (Input.GetKey(KeyCode.Space) && _tick < Time.time)
+            {
+                _tick = Time.time + FireTime;
+                GameObject laser = LeanPool.Spawn(Laser);
+                laser.transform.position = new Vector2(transform.position.x, transform.position.y + LaserSpacing);
             }
         }
     }

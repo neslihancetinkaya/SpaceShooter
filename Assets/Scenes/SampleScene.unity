@@ -332,8 +332,11 @@ MonoBehaviour:
   ConstraintY: 4.5
   Speed: 5
   IngressDuration: 1.5
+  FireTime: 0.25
+  LaserSpacing: 0.5
   IngressEase: 1
   StartPos: {x: 0, y: -4.5}
+  Laser: {fileID: 5047279484310611189, guid: dac69f4aaa80d4f4f8b93d121f6a1d2c, type: 3}
 --- !u!1 &278315935
 GameObject:
   m_ObjectHideFlags: 0
