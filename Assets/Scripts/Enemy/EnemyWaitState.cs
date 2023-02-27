@@ -2,17 +2,17 @@ namespace Enemy
 {
     public class EnemyWaitState : EnemyBaseState
     {
-        public override void EnterState(EnemyStateManager enemy)
+        public override void EnterState(EnemyController enemy)
         {
             
         }
 
-        public override void UpdateState(EnemyStateManager enemy)
+        public override void UpdateState(EnemyController enemy)
         {
             
         }
 
-        public override void ExitState(EnemyStateManager enemy)
+        public override void ExitState(EnemyController enemy)
         {
             
         }

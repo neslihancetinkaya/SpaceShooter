@@ -5,7 +5,7 @@ namespace Enemy
     public class EnemyPatrolState : EnemyBaseState
     {
         
-        public override void EnterState(EnemyStateManager enemy)
+        public override void EnterState(EnemyController enemy)
         {
             float randX = Random.Range(-9, 9);
             float randY = Random.Range(-5, 5);
@@ -13,7 +13,7 @@ namespace Enemy
             enemy.motionDirection = (enemy.motionTarget - enemy.transform.position).normalized;
         }
 
-        public override void UpdateState(EnemyStateManager enemy)
+        public override void UpdateState(EnemyController enemy)
         {
             if((enemy.motionTarget - enemy.transform.position).magnitude <= 2){
                 EnterState(enemy);
@@ -23,7 +23,7 @@ namespace Enemy
             }
         }
 
-        public override void ExitState(EnemyStateManager enemy)
+        public override void ExitState(EnemyController enemy)
         {
             
         }

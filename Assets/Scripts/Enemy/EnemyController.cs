@@ -4,7 +4,7 @@ using Utils.ReferenceValues;
 
 namespace Enemy
 {
-    public class EnemyStateManager : MonoBehaviour
+    public class EnemyController : MonoBehaviour
     {
         private EnemyBaseState _currentState;
         
