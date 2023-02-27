@@ -16,11 +16,11 @@ namespace Utils
         {
             public List<IDecision> Decisions { get; } = new List<IDecision>();
 
-            public virtual void Enter(State from)
+            public virtual void EnterState(State from)
             {
             }
 
-            public virtual void Exit(State to)
+            public virtual void ExitState(State to)
             {
             }
 
@@ -42,11 +42,11 @@ namespace Utils
                 {
                     State oldState = _currentState;
                     if (_currentState != null)
-                        _currentState.Exit(value);
+                        _currentState.ExitState(value);
 
                     _currentState = value;
                     if (_currentState != null)
-                        _currentState.Enter(oldState);
+                        _currentState.EnterState(oldState);
                     StateChanged(_currentState, oldState);
                 }
             }
