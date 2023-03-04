@@ -4,7 +4,6 @@ namespace Enemy
 {
     public class EnemyPatrolState : EnemyBaseState
     {
-        
         public override void EnterState(EnemyController enemy)
         {
             float randX = Random.Range(-9, 9);
@@ -27,5 +26,6 @@ namespace Enemy
         {
             
         }
+
     }
 }

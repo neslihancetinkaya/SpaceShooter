@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Lean.Pool;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace Player
@@ -18,14 +19,35 @@ namespace Player
         [SerializeField] private Vector2 StartPos;
         [SerializeField] private GameObject Laser;
         
-        private bool _horizontalConstraint;
-        private bool _verticalConstraint;
+        private PlayerControls PlayerMovement;
+        private PlayerControls PlayerFire;
+        private InputAction _move;
+        private InputAction _fire;
+
         private bool _ingressCompleted;
         private float _tick;
+        private Vector2 _moveDirection = Vector2.zero;
 
         private void Awake()
         {
             transform.position = StartPos;
+            PlayerMovement = new PlayerControls();
+        }
+        
+        private void OnEnable()
+        {
+            _move = PlayerMovement.Player.Move;
+            _move.Enable();
+
+            _fire = PlayerMovement.Player.Fire;
+            _fire.Enable();
+            _fire.performed += Fire;
+        }
+
+        private void OnDisable()
+        {
+            _move.Disable();
+            _fire.Disable();
         }
 
         private void Start()
@@ -39,39 +61,21 @@ namespace Player
             if(!_ingressCompleted)
                 return;
             Move();
-            Fire();
         }
 
         private void Move()
         {
-            var position = transform.position;
-            _horizontalConstraint = position.x < ConstraintX && position.x > -ConstraintX;
-            _verticalConstraint = position.y < ConstraintY && position.y > -ConstraintY;
-
-            if (_horizontalConstraint)
-            {
-                if (Input.GetKey(KeyCode.RightArrow))
-                    transform.position = new Vector2(position.x + Speed * Time.deltaTime, position.y);
-
-                if (Input.GetKey(KeyCode.LeftArrow))
-                    transform.position = new Vector2(position.x - Speed * Time.deltaTime, position.y);
-                
-            }
-
-            if (_verticalConstraint)
-            {
-                if(Input.GetKey(KeyCode.UpArrow))
-                    transform.position = new Vector2(position.x, position.y + Speed * Time.deltaTime);
-                
-                if(Input.GetKey(KeyCode.DownArrow))
-                    transform.position = new Vector2(position.x, position.y - Speed * Time.deltaTime);
-                
-            }
+            _moveDirection = _move.ReadValue<Vector2>().normalized;
+            Vector2 position = transform.position;
+            position += _moveDirection * (Speed * Time.deltaTime);
+            position.x = Mathf.Clamp(position.x, -ConstraintX, ConstraintX);
+            position.y = Mathf.Clamp(position.y, -ConstraintY, ConstraintY);
+            transform.position = position;
         }
 
-        private void Fire()
+        private void Fire(InputAction.CallbackContext context)
         {
-            if (Input.GetKey(KeyCode.Space) && _tick < Time.time)
+            if (_tick < Time.time)
             {
                 _tick = Time.time + FireTime;
                 GameObject laser = LeanPool.Spawn(Laser);

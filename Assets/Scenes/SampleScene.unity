@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConstraintX: 8.4
   ConstraintY: 4.5
-  Speed: 5
+  Speed: 10
   IngressDuration: 1.5
   FireTime: 0.25
   LaserSpacing: 0.5
@@ -3022,7 +3022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1362182525
 Transform:
   m_ObjectHideFlags: 0
